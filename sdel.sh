@@ -12,7 +12,7 @@ function print_help {
     echo "  file                 Ficheiro a ser apapago"
     echo "  -r dir               Sdel é aplicado recursivamente na diretoria dir"
     echo "  -t num               Apaga os ficheiros do LIXO com mais de num horas"
-    echo "  -s num               Apaga os ficheiros do LIXO com mais de num KB"
+    echo "  -s num               Apaga os ficheiros do LIXO com mais de num KB/B"
     echo "  -u                   Print do tamanho do maior ficheiro no diretorio LIXO"
     echo "  -h                   Print do manual de utilizador"
 }
@@ -50,8 +50,8 @@ while getopts ":r:t:s:uh" opt; do
             exit 0
             ;;
         s)
-            find ~/.LIXO/ -mindepth 1 -type f -name "*.gz" -size +"${OPTARG%k}" -exec rm -f + {} \;
-            log "Apagar ficheiros do lixo com mais de $OPTARG KB"
+            find ~/.LIXO/ -type f -size +"${OPTARG}" -exec rm -f + {} \;
+            log "Apagar ficheiros do lixo com mais de $OPTARG B"
             exit 0
             ;;
         u)
