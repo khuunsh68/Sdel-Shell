@@ -1,0 +1,26 @@
+ssssssssssssssssssskhuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$ ./sdel.sh -u
+83
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$ ls -lS ~/.LIXO
+total 0
+-rw-r--r-- 1 khuunsh khuunsh 83 Mar 20 14:38 2023-03-20_14:38:45_file3.txt.gz
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$ ./sdel.sh file4.txt
+Erro: file4.txt não existe
+gzip: file4.txt: No such file or directory
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$ ls -lS ~/.LIXO
+total 0
+-rw-r--r-- 1 khuunsh khuunsh 83 Mar 20 14:38 2023-03-20_14:38:45_file3.txt.gz
+-rw-r--r-- 1 khuunsh khuunsh  0 Mar 20 14:39 2023-03-20_14:39:16_file4.txt.gz
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$ ./sdel.sh -u
+83
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$ ls -lS ~/.LIXO
+total 0
+-rw-r--r-- 1 khuunsh khuunsh 83 Mar 20 14:38 2023-03-20_14:38:45_file3.txt.gz
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$ ./sdel.sh file4.txt
+Erro: file4.txt não existe
+gzip: file4.txt: No such file or directory
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$ ls -lS ~/.LIXO
+total 0
+-rw-r--r-- 1 khuunsh khuunsh 83 Mar 20 14:38 2023-03-20_14:38:45_file3.txt.gz
+-rw-r--r-- 1 khuunsh khuunsh  0 Mar 20 14:39 2023-03-20_14:39:16_file4.txt.gz
+khuunsh@DESKTOP-N5R2HR5:/mnt/c/Users/Lenovo/OneDrive/Área de Trabalho/Sdel-Shell$
