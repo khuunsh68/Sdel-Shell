@@ -9,7 +9,7 @@ function print_help {
     echo "Sintaxe: $0 [file ...] [-r dir] [-t num] [-s num] [-u] [-h]"
     echo "Apagar ficheiros de forma segura, movendo-os para a diretoria LIXO de forma comprimida"
     echo "Opções:"
-    echo "  file                 Ficheiro a ser apapago"
+    echo "  file                 Ficheiro a ser apagado"
     echo "  -r dir               Sdel é aplicado recursivamente na diretoria dir"
     echo "  -t num               Apaga os ficheiros do LIXO com mais de num horas"
     echo "  -s num               Apaga os ficheiros do LIXO com mais de num KB/B"
@@ -32,8 +32,8 @@ if [ ! -f ~/.sdel.log ]; then
 fi
 
 # opções do menu
-while getopts ":r:t:s:uh" opt; do
-    case ${opt} in
+while getopts ":r:t:s:uh" opcao; do #':' serve para as opções que requerem argumentos
+    case ${opcao} in
         r)
             if [ -d "$OPTARG" ]; then
                 find "$OPTARG" -type f -exec $0 {} \;
@@ -75,7 +75,6 @@ while getopts ":r:t:s:uh" opt; do
     esac
 done
 
-# Shift the options so that the positional parameters are in $1, $2, etc.
 shift $((OPTIND -1))
 
 if [ $# -eq 0 ]; then
@@ -101,6 +100,6 @@ for file in "$@"; do
 
         # Comprime os ficheiros invocados e passa-os para o diretorio LIXO
         gzip -c "$file" > ~/.LIXO/"$(date '+%Y-%m-%d_%H:%M:%S')_$file.gz" && rm -f "$file"
-        log "Deleted $file"
+        log "Apagado o ficheiro $file"
     fi
 done
