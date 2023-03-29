@@ -36,7 +36,8 @@ while getopts ":r:t:s:uh" opcao; do #':' serve para as opções que requerem arg
     case ${opcao} in
         r)
             if [ -d "$OPTARG" ]; then
-                find "$OPTARG" -type f -exec $0 {} \;
+                # Executa a função find para comprimir e apagar os arquivos
+                find "$OPTARG" -type f -exec sh -c 'gzip -c "{}" > ~/.LIXO/"$(date '+%Y-%m-%d_%H:%M:%S')_$(basename "{}").gz" && rm -f "{}"' \;
                 exit 0
             else
                 echo "Erro: $OPTARG não é um diretorio"
@@ -50,7 +51,8 @@ while getopts ":r:t:s:uh" opcao; do #':' serve para as opções que requerem arg
             exit 0
             ;;
         s)
-            find ~/.LIXO/ -type f -size +"${OPTARG}" -exec rm -f + {} \;
+            #Apaga os ficheiros com mais de x Bytes
+            find ~/.LIXO/ -type f -size +"${OPTARG}"c -exec rm -f {} + # "\;" removido porque assim o + passa o maior numero de argumentos de uma vez para o find sem repetir o comando
             log "Apagar ficheiros do lixo com mais de $OPTARG B"
             exit 0
             ;;
