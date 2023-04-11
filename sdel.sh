@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Print da sintaxe correta
 function print_sintaxe {
     echo "Sintaxe: $0 [file ...] [-r dir] [-t num] [-s num] [-u] [-h]"
 }
@@ -17,6 +18,7 @@ function print_help {
     echo "  -h                   Print do manual de utilizador"
 }
 
+# Ficheiro log vai conter todos os logs feitos com o comando
 function log {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> ~/.sdel.log
 }
@@ -36,12 +38,12 @@ while getopts ":r:t:s:uh" opcao; do #':' serve para as opções que requerem arg
     case ${opcao} in
         r)
             if [ -d "$OPTARG" ]; then
-                # Executa a função find para comprimir e apagar os arquivos
-                find "$OPTARG" -type f -exec sh -c 'gzip -c "{}" > ~/.LIXO/"$(date '+%Y-%m-%d_%H:%M:%S')_$(basename "{}").gz" && rm -f "{}"' \;
+                # Executa a função find para comprimir e mover os ficheiros para LIXO
+                find "$OPTARG" -type f -exec bash -c 'gzip -c "{}" > ~/.LIXO/"$(date '+%Y-%m-%d_%H:%M:%S')_$(basename "{}").gz" && rm -f "{}"' \;
                 exit 0
             else
                 echo "Erro: $OPTARG não é um diretorio"
-                print_sintaxe
+                print_sintaxe # Sintaxe correta
                 exit 1
             fi
             ;;
@@ -53,7 +55,7 @@ while getopts ":r:t:s:uh" opcao; do #':' serve para as opções que requerem arg
         s)
             #Apaga os ficheiros com mais de x Bytes
             find ~/.LIXO/ -type f -size +"${OPTARG}"c -exec rm -f {} + # "\;" removido porque assim o + passa o maior numero de argumentos de uma vez para o find sem repetir o comando
-            log "Apagar ficheiros do lixo com mais de $OPTARG B"
+            log "Apagar ficheiros do lixo com mais de $OPTARG B/KB"
             exit 0
             ;;
         u)
@@ -66,28 +68,30 @@ while getopts ":r:t:s:uh" opcao; do #':' serve para as opções que requerem arg
             ;;
         \?)
             echo "Erro: Opção inválida -$OPTARG" 1>&2
-            print_sintaxe
+            print_sintaxe # Sintaxe correta
             exit 1
             ;;
-        :)
+        :) # Quando uma opção requer argumento, este bloco de código vai ser executado
             echo "Erro: Opção -$OPTARG requer um argumento" 1>&2
-            print_sintaxe
+            print_sintaxe # Sintaxe correta
             exit 1
             ;;
     esac
 done
 
+# Permite remover argumentos já processados, continuando a processar os próximos argumentos sem erros ou duplicar nada
 shift $((OPTIND -1))
 
+# Não deixa o comando sdel ser executado sem argumentos, dando um erro ao usuário
 if [ $# -eq 0 ]; then
     echo "Erro: Nenhum ficheiro especificado"
     print_sintaxe
     exit 1
 fi
 
-# Loop nos ficheiros existentes
+# Loop nos ficheiros passados como argumento para o comando
 for file in "$@"; do
-    if [ ! -e "$file" ]; then
+    if [ ! -e "$file" ]; then # Verifica se o ficheiro passado como argumento existe
         echo "Erro: $file não existe"
         continue
     else
