@@ -95,15 +95,6 @@ for file in "$@"; do
         echo "Erro: $file não existe"
         continue
     else
-
-    	if [ -d "$file" ]; then #verifica se é diretorio, se for avança para o proximo if
-            if [ "$file" == "." ]; then #se o diretorio for . entao é o diretorio atual e pode continuar para o proximo arquivo
-            	continue
-            fi
-            find "$file" -type f -exec $0 {} \; #se nao for o diretorio atual,  o script vai executar a funçao recursivamente em todos os arquivos no dir
-            continue
-        fi
-
         # Comprime os ficheiros invocados e passa-os para o diretorio LIXO
         gzip -c "$file" > ~/.LIXO/"$(date '+%Y-%m-%d_%H:%M:%S')_$file.gz" && rm -f "$file"
         log "Apagado o ficheiro $file"
